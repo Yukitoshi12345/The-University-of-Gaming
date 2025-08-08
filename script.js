@@ -41,13 +41,20 @@ $(document).ready(() => {
   //displays the recent arcticles in the collapse component
   function displayArticles(response) {
     let title, url;
+    recentArticlesEl.html(""); // Clear existing content
     response.results.forEach((result, index) => {
       title = result.title;
       url = result.site_detail_url;
       recentArticlesEl.append(
-        `<li class ="hover:text-amber-100 hover:cursor-pointer hover:text-lg border-b-2 border-amber-50" data-url="${url}">${
-          index + 1
-        }.${title}</li>`
+        `<li class="flex items-center justify-between p-3 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg border border-gray-600/30 hover:from-gray-700/70 hover:to-gray-600/70 hover:border-emerald-400/50 hover:text-emerald-300 hover:cursor-pointer transform hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg" data-url="${url}">
+          <span class="flex items-center space-x-2 flex-1">
+            <span class="text-emerald-400 font-bold text-sm">${
+              index + 1
+            }.</span>
+            <span class="text-gray-200 text-sm leading-tight">${title}</span>
+          </span>
+          <i class="fas fa-external-link-alt text-gray-400 hover:text-emerald-300 transition-colors duration-200 ml-2"></i>
+        </li>`
       );
     });
   }
@@ -341,10 +348,24 @@ $(document).ready(() => {
     if (recentSearches.length > 0) {
       recentSearches.forEach((search) => {
         recentSearchEl.append(
-          `<li class ="hover:text-amber-100 hover:cursor-pointer hover:text-lg border-b-2 border-amber-50 ">${i}.${search}</li>`
+          `<li class="flex items-center justify-between p-3 bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg border border-gray-600/30 hover:from-gray-700/70 hover:to-gray-600/70 hover:border-amber-400/50 hover:text-amber-300 hover:cursor-pointer transform hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg">
+            <span class="flex items-center space-x-2">
+              <span class="text-amber-400 font-bold text-sm">${i}.</span>
+              <span class="text-gray-200">${search}</span>
+            </span>
+            <i class="fas fa-search text-gray-400 hover:text-amber-300 transition-colors duration-200"></i>
+          </li>`
         );
         i++;
       });
+    } else {
+      recentSearchEl.html(`
+        <li class="text-center text-gray-400 italic p-4">
+          <i class="fas fa-search text-2xl mb-2"></i>
+          <p>No recent searches yet</p>
+          <p class="text-sm">Search for a game to see it here!</p>
+        </li>
+      `);
     }
   }
 

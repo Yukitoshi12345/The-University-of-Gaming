@@ -41,36 +41,47 @@
           <div
             class="flex flex-col text-amber-400 m-3 md:grid md:grid-cols-3 md:gap-10 lg:grid-cols-5"
           >
-            <div class="md:col-span-1 lg:col-span-1">
+            <div class="md:col-span-1 lg:col-span-1 space-y-4">
               <!--Search collapse component-->
               <div
                 tabindex="0"
-                class="collapse collapse-arrow border border-base-300 bg-gradient-to-r from-cyan-500 to-blue-500 hover:opacity-90 hover:shadow-md"
+                class="collapse collapse-arrow bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-600 border-0 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out rounded-xl overflow-hidden"
               >
                 <div
-                  class="collapse-title text-lg font-medium data-caption bg-white drop-shadow-lg"
+                  class="collapse-title text-lg font-bold text-white bg-gradient-to-r from-purple-800/80 to-blue-800/80 backdrop-blur-sm border-b border-white/20"
                 >
-                  Click to See Recently Searched Games
+                  <div class="flex items-center space-x-2">
+                    <i class="fas fa-history text-amber-300"></i>
+                    <span>Recently Searched Games</span>
+                  </div>
                 </div>
-                <div class="collapse-content">
-                  <ul class="text-right recent-search">
+                <div
+                  class="collapse-content bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm"
+                >
+                  <ul class="recent-search space-y-2 p-2">
                     <!--Searched Games go here-->
                   </ul>
                 </div>
               </div>
               <!--Search collapse component End-->
+
               <!--Article collapse component-->
               <div
                 tabindex="1"
-                class="collapse collapse-arrow border border-base-300 bg-gradient-to-r from-cyan-500 to-blue-500 hover:opacity-90 hover:shadow-md"
+                class="collapse collapse-arrow bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 border-0 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out rounded-xl overflow-hidden"
               >
                 <div
-                  class="collapse-title text-lg font-medium data-caption bg-white drop-shadow-lg"
+                  class="collapse-title text-lg font-bold text-white bg-gradient-to-r from-emerald-800/80 to-teal-800/80 backdrop-blur-sm border-b border-white/20"
                 >
-                  Click to See 5 Most Recent Gaming Articles
+                  <div class="flex items-center space-x-2">
+                    <i class="fas fa-newspaper text-amber-300"></i>
+                    <span>Recent Gaming Articles</span>
+                  </div>
                 </div>
-                <div class="collapse-content">
-                  <ul class="text-right recent-articles">
+                <div
+                  class="collapse-content bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm"
+                >
+                  <ul class="recent-articles space-y-2 p-2">
                     <!--Recent articles go here-->
                   </ul>
                 </div>
@@ -315,7 +326,7 @@
       class="fixed right-0 bottom-0 p-6 text-sm text-center fade-in bg-slate-50 w-full"
     >
       &copy; 2024 Darren Doan, Muhamad Sahid, Suyash Maharjan, and Yukitoshi
-      Imaizumi-Zhou. All Rights Reserved.
+      Imaizumi Zhou. All Rights Reserved.
     </footer>
     <!--Footer End-->
     <!-- arrow to top  -->
