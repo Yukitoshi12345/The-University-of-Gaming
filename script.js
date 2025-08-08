@@ -109,15 +109,28 @@ $(document).ready(() => {
     $.ajax({
       url: requestUrl,
       method: "GET",
-    }).then(function (response) {
-      console.log("Ajax Response \n-------------");
-      console.log(response);
-      if (content === "video") {
-        displayVideo(response);
-      } else {
-        displayArticles(response);
-      }
-    });
+    })
+      .then(function (response) {
+        console.log("Ajax Response \n-------------");
+        console.log(response);
+        if (content === "video") {
+          displayVideo(response);
+        } else {
+          displayArticles(response);
+        }
+      })
+      .fail(function (xhr, status, error) {
+        console.error("GameSpot API Error:", error);
+        console.error("Status:", status);
+        console.error("Response:", xhr.responseText);
+        // Add fallback content for articles
+        if (content === "articles") {
+          recentArticlesEl.html(`
+          <li class="text-red-400">Unable to load recent articles</li>
+          <li class="text-gray-400">Please check your internet connection</li>
+        `);
+        }
+      });
   }
   //fetches the game video data when game slug is passed in
   function fetchTheGameVideo(slug) {
@@ -499,8 +512,57 @@ $(document).ready(() => {
 
   //displays 5 most recent gaming articles
   function displayTop5RecentArticles() {
+    console.log("Attempting to fetch recent articles...");
+
+    // Try GameSpot API first
     const url = `https://www.gamespot.com/api/articles/?api_key=${gamespotKey}&format=json&sort=publish_date:desc&limit=5`;
-    fetchGamespotData(url, "articles");
+    console.log("API URL:", url);
+
+    // Add fallback articles in case API fails
+    const fallbackArticles = [
+      {
+        title: "Latest Gaming Industry Updates",
+        site_detail_url: "https://www.gamespot.com",
+      },
+      {
+        title: "New Game Releases This Week",
+        site_detail_url: "https://www.gamespot.com",
+      },
+      {
+        title: "Gaming Technology Trends 2024",
+        site_detail_url: "https://www.gamespot.com",
+      },
+      {
+        title: "Esports Championship Highlights",
+        site_detail_url: "https://www.gamespot.com",
+      },
+      {
+        title: "Indie Game Spotlight",
+        site_detail_url: "https://www.gamespot.com",
+      },
+    ];
+
+    // Try the API, but if it fails, show fallback articles
+    $.ajax({
+      url: url,
+      method: "GET",
+      timeout: 5000, // 5 second timeout
+    })
+      .then(function (response) {
+        console.log("GameSpot API Response:", response);
+        if (response && response.results) {
+          displayArticles(response);
+        } else {
+          // If response doesn't have expected structure, use fallback
+          displayArticles({ results: fallbackArticles });
+        }
+      })
+      .fail(function (xhr, status, error) {
+        console.error("GameSpot API failed, using fallback articles");
+        console.error("Error:", error);
+        // Use fallback articles
+        displayArticles({ results: fallbackArticles });
+      });
   }
   //when the page loads, it shows
   //the recently searched games and
